@@ -1,4 +1,8 @@
+"use client";
+
+import clsx from "clsx";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "./logo";
 
 const routes = [
@@ -13,6 +17,8 @@ const routes = [
 ];
 
 function Header() {
+  const activePathname = usePathname();
+
   return (
     <header className="flex justify-between items-center border-b border-white/10 h-14 px-3 sm:px-9">
       <Logo />
@@ -22,7 +28,10 @@ function Header() {
           {routes.map((route) => (
             <li
               key={route.path}
-              className="text-white/50 hover:text-white transition"
+              className={clsx("hover:text-white transition", {
+                "text-white": activePathname === route.path,
+                "text-white/50": activePathname !== route.path,
+              })}
             >
               <Link href={route.path}>{route.name}</Link>
             </li>
