@@ -15,8 +15,7 @@ async function EventsPage({ params }: EventsPageProps) {
     `https://bytegrad.com/course-assets/projects/evento/api/events?city=${city}`
   );
 
-  const events: EventoEvent[] = await response.json();
-  console.log(events);
+  const events: EventoEvent[] = await response.json();  
 
   return (
     <main className="flex flex-col items-center py-24 px-[20px] min-h-[110vh]">
