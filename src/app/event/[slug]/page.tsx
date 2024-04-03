@@ -59,8 +59,34 @@ async function EventPage({ params: { slug } }: EventPageProps) {
         </div>
       </section>
 
-      <div></div>
+      <div className="text-center px-5 py-16 min-h-[75vh]">
+        <Section>
+          <SectionHeading>About this event</SectionHeading>
+          <SectionContent>{event.description}</SectionContent>
+        </Section>
+
+        <Section>
+          <SectionHeading>Location</SectionHeading>
+          <SectionContent>{event.location}</SectionContent>
+        </Section>
+      </div>
     </main>
+  );
+}
+
+function Section({ children }: { children: React.ReactNode }) {
+  return <section className="mb-12">{children}</section>;
+}
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return <h2 className="text-2xl mb-8">{children}</h2>;
+}
+
+function SectionContent({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-lg leading-8 mx-auto text-white/75 max-w-4xl">
+      {children}
+    </p>
   );
 }
 
