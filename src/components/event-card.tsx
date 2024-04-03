@@ -16,7 +16,7 @@ function EventCard({
     >
       <section className="w-full h-full  bg-white/[3%] rounded-xl overflow-hidden flex flex-col  relative state-effects">
         <Image
-          className="h-[60%] object-fill"
+          className="h-[60%] object-cover"
           src={imageUrl}
           alt={name}
           width={500}
