@@ -1,4 +1,4 @@
-import { EventoEvent } from "./types";
+import { EventoEvent } from "@prisma/client";
 
 const BASE_API_URL =
   "https://bytegrad.com/course-assets/projects/evento/api/events";
