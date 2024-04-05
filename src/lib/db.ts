@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import prisma from "./prisma";
 import { capitalize } from "./utils";
 
@@ -19,10 +20,11 @@ export async function getEvent(slug: string) {
     where: {
       slug: slug,
     },
-    orderBy: {
-      date: "asc",
-    },
   });
+
+  if (!event) {
+    return notFound();
+  }
 
   return event;
 }
