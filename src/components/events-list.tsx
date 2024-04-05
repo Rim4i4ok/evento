@@ -1,4 +1,4 @@
-import { getEvents } from "@/lib/apit";
+import { getEvents } from "@/lib/db";
 import EventCard from "./event-card";
 
 type EventsListProps = {

@@ -1,5 +1,5 @@
 import H1 from "@/components/h1";
-import { getEvent } from "@/lib/apit";
+import { getEvent } from "@/lib/db";
 import { capitalize } from "@/lib/utils";
 import { Metadata } from "next";
 import Image from "next/image";
