@@ -2,7 +2,9 @@ import { notFound } from "next/navigation";
 import prisma from "./prisma";
 import { capitalize } from "./utils";
 
-export async function getEvents(city: string) {
+const STEP = 6;
+
+export async function getEvents(city: string, page: number = 1) {
   const events = await prisma.eventoEvent.findMany({
     where: {
       city: city === "all" ? undefined : capitalize(city),
@@ -10,6 +12,8 @@ export async function getEvents(city: string) {
     orderBy: {
       date: "asc",
     },
+    take: STEP,
+    skip: (page - 1) * STEP,
   });
 
   return events;
