@@ -5,10 +5,10 @@ import { DB_STEP_ITEMS } from "@/lib/constants";
 
 type EventsListProps = {
   city: string;
-  page: number;
+  page?: number;
 };
 
-async function EventsList({ city, page }: EventsListProps) {
+async function EventsList({ city, page = 1 }: EventsListProps) {
   const { events, totalCount } = await getEvents(city, page);
 
   const previousPath = page > 1 ? `/events/${city}?page=${page - 1}` : "";

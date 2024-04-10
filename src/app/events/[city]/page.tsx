@@ -1,9 +1,10 @@
 import EventsList from "@/components/events-list";
 import H1 from "@/components/h1";
 import { capitalize } from "@/lib/utils";
+import { pageNumberSchema } from "@/lib/validation";
+import { Metadata } from "next";
 import { Suspense } from "react";
 import Loading from "./loading";
-import { Metadata } from "next";
 
 type Props = {
   params: {
@@ -25,7 +26,10 @@ export function generateMetadata({ params }: Props): Metadata {
 
 async function EventsPage({ params, searchParams }: EventsPageProps) {
   const city = params.city;
-  const page = searchParams.page || 1;
+  const parsedPage = pageNumberSchema.safeParse(searchParams.page);
+  if (!parsedPage.success) {
+    throw new Error("Invalid page number");
+  }
 
   return (
     <main className="flex flex-col items-center py-24 px-[20px] min-h-[110vh]">
@@ -34,8 +38,8 @@ async function EventsPage({ params, searchParams }: EventsPageProps) {
         {city !== "all" && `Events in ${capitalize(city)}`}
       </H1>
 
-      <Suspense key={city + page} fallback={<Loading />}>
-        <EventsList city={city} page={+page} />
+      <Suspense key={city + parsedPage.data} fallback={<Loading />}>
+        <EventsList city={city} page={parsedPage.data} />
       </Suspense>
     </main>
   );
