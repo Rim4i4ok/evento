@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import prisma from "./prisma";
 import { capitalize } from "./utils";
-
-const STEP = 6;
+import { DB_STEP_ITEMS } from "./constants";
 
 export async function getEvents(city: string, page: number = 1) {
   const events = await prisma.eventoEvent.findMany({
@@ -12,11 +11,22 @@ export async function getEvents(city: string, page: number = 1) {
     orderBy: {
       date: "asc",
     },
-    take: STEP,
-    skip: (page - 1) * STEP,
+    take: DB_STEP_ITEMS,
+    skip: (page - 1) * DB_STEP_ITEMS,
   });
 
-  return events;
+  let totalCount = 0;
+  if (city === "all") {
+    totalCount = await prisma.eventoEvent.count();
+  } else {
+    totalCount = await prisma.eventoEvent.count({
+      where: {
+        city: city === "all" ? undefined : capitalize(city),
+      },
+    });
+  }
+
+  return { events, totalCount };
 }
 
 export async function getEvent(slug: string) {
