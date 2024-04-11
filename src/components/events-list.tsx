@@ -1,4 +1,4 @@
-import { getEvents } from "@/lib/db";
+import { getEvents } from "@/lib/server-utils";
 import EventCard from "./event-card";
 import PaginationControls from "./pagination-controls";
 import { DB_STEP_ITEMS } from "@/lib/constants";
